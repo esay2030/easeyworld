@@ -1,1 +1,1 @@
-# easeyworld
+# easyworld
