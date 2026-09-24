@@ -3,429 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة المنتجات - طلب مباشر</title>
+    <title>Easy World Fasteners | عالم سهل للبراغي والمسامير</title>
+    <!-- Tailwind CSS للتصميم -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            direction: rtl;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding-bottom: 80px;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        .category {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .category-title {
-            font-size: 1.4rem;
-            color: #16a085;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        .product-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .product-item:last-child {
-            border-bottom: none;
-        }
-        .product-name {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: #333;
-            flex: 1;
-            min-width: 180px;
-        }
-        .order-action {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .qty-input {
-            width: 65px;
-            padding: 6px 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 1rem;
-        }
-        .btn-send {
-            background-color: #25D366;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: background 0.3s ease;
-        }
-        .btn-send:hover {
-            background-color: #1ebd56;
-        }
-        .btn-send-alt {
-            background-color: #128C7E;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: background 0.3s ease;
-        }
-        .btn-send-alt:hover {
-            background-color: #0d6e63;
-        }
-
-        /* أزرار الاتصال السريع العائمة في الأسفل */
-        .floating-contact {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-        .floating-btn {
-            background-color: #25D366;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            font-size: 0.9rem;
-        }
-        .floating-btn.alt {
-            background-color: #128C7E;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-<div class="container">
-    <h1>قائمة المنتجات - طلب مباشر</h1>
+    <!-- Header / الشريط العلوي -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-extrabold text-amber-500 tracking-wider">EASY WORLD FASTENERS</h1>
+                <p class="text-xs text-gray-400">عالم سهل للبراغي والمسامير ومستلزمات التثبيت</p>
+            </div>
+            <nav class="hidden md:flex space-x-6 space-x-reverse font-semibold">
+                <a href="#home" class="hover:text-amber-500 transition">الرئيسية</a>
+                <a href="#categories" class="hover:text-amber-500 transition">الأقسام</a>
+                <a href="#rfq" class="hover:text-amber-500 transition">طلب عرض سعر</a>
+                <a href="#contact" class="hover:text-amber-500 transition">اتصل بنا</a>
+            </nav>
+            <a href="#rfq" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm transition">
+                <i class="fa-solid fa-file-invoice left-1"></i> اطلب عرض سعر
+            </a>
+        </div>
+    </header>
 
-    <!-- قسم 🔩 Bolts -->
-    <div class="category">
-        <h2 class="category-title">🔩 Bolts</h2>
-        
-        <div class="product-item">
-            <span class="product-name">Hex Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-hex-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Hex Bolt', 'qty-hex-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Hex Bolt', 'qty-hex-bolt', 'alt')">طلب (54)</button>
+    <!-- Hero Section / الواجهة الرئيسية -->
+    <section id="home" class="bg-slate-800 text-white py-16 px-4 text-center border-b-4 border-amber-500">
+        <div class="max-w-4xl mx-auto">
+            <span class="bg-amber-500/20 text-amber-400 text-sm font-semibold px-3 py-1 rounded-full border border-amber-500/30">Your Trusted Fastener Supplier in Saudi Arabia</span>
+            <h2 class="text-3xl md:text-5xl font-black mt-4 mb-4 leading-tight">توريد كافة أنواع البراغي والمسامير والصواميل للمشاريع والمصانع</h2>
+            <p class="text-gray-300 text-base md:text-lg mb-8 max-w-2xl mx-auto">
+                نوفر منتجات التثبيت للمقاولين والشركات والورش، مع إمكانية التوريد حسب المواصفات والكميات المطلوبة والمواصفات الخاصة.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://wa.me/?text=السلام%20عليكم،%20أرغب%20في%20الاستفسار%20عن%20عروض%20الأسعار" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition text-lg">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> طلب عرض سعر عبر واتساب
+                </a>
+                <a href="#categories" class="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition text-lg">
+                    <i class="fa-solid fa-boxes-stacked"></i> تصفح المنتجات
+                </a>
             </div>
         </div>
+    </section>
 
-        <div class="product-item">
-            <span class="product-name">Carriage Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-carriage-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Carriage Bolt', 'qty-carriage-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Carriage Bolt', 'qty-carriage-bolt', 'alt')">طلب (54)</button>
-            </div>
+    <!-- Categories / الأقسام الرئيسية -->
+    <section id="categories" class="py-12 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-10">
+            <h3 class="text-2xl md:text-3xl font-bold text-slate-900">الأقسام الرئيسية للمنتجات</h3>
+            <p class="text-gray-600 mt-2">اختر القسم لاستعراض المنتجات والمواصفات المتوفرة</p>
         </div>
 
-        <div class="product-item">
-            <span class="product-name">U-Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-u-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('U-Bolt', 'qty-u-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('U-Bolt', 'qty-u-bolt', 'alt')">طلب (54)</button>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- Bolts -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition text-center">
+                <div class="text-4xl mb-3">🔩</div>
+                <h4 class="font-bold text-lg text-slate-900">Bolts / براغي</h4>
+                <p class="text-xs text-gray-500 mt-1">Hex, Carriage, U-Bolt</p>
+            </div>
+            <!-- Screws -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition text-center">
+                <div class="text-4xl mb-3">🪛</div>
+                <h4 class="font-bold text-lg text-slate-900">Screws / مسامير</h4>
+                <p class="text-xs text-gray-500 mt-1">Self Drilling, Drywall, Concrete</p>
+            </div>
+            <!-- Nuts -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition text-center">
+                <div class="text-4xl mb-3">🔧</div>
+                <h4 class="font-bold text-lg text-slate-900">Nuts / صواميل</h4>
+                <p class="text-xs text-gray-500 mt-1">Hex Nut, Lock Nut, Flange</p>
+            </div>
+            <!-- Washers -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition text-center">
+                <div class="text-4xl mb-3">⚙️</div>
+                <h4 class="font-bold text-lg text-slate-900">Washers / واشرات</h4>
+                <p class="text-xs text-gray-500 mt-1">Flat, Spring, Fender</p>
+            </div>
+            <!-- Anchors -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition text-center">
+                <div class="text-4xl mb-3">🧱</div>
+                <h4 class="font-bold text-lg text-slate-900">Anchors / أنكر</h4>
+                <p class="text-xs text-gray-500 mt-1">Anchor Bolt, Expansion</p>
+            </div>
+            <!-- Fixings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition text-center">
+                <div class="text-4xl mb-3">🏗️</div>
+                <h4 class="font-bold text-lg text-slate-900">Fixings / مثبتات</h4>
+                <p class="text-xs text-gray-500 mt-1">Concrete & Steel Fixings</p>
+            </div>
+            <!-- Special Parts -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-amber-300 bg-amber-50/30 hover:shadow-md transition text-center col-span-2 md:col-span-2">
+                <div class="text-4xl mb-3">🛠️</div>
+                <h4 class="font-bold text-lg text-slate-900">Special Parts / تصنيع خاص</h4>
+                <p class="text-xs text-gray-600 mt-1">تصنيع وتوريد حسب الرسم الهندسي والمواصفات المطلوبة</p>
             </div>
         </div>
+    </section>
 
-        <div class="product-item">
-            <span class="product-name">G.I. U-Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-gi-u-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('G.I. U-Bolt', 'qty-gi-u-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('G.I. U-Bolt', 'qty-gi-u-bolt', 'alt')">طلب (54)</button>
+    <!-- RFQ Form / استمارة طلب عرض السعر -->
+    <section id="rfq" class="bg-slate-100 py-12 px-4 border-t border-gray-200">
+        <div class="max-w-2xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-200">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900">🟢 طلب عرض سعر سريع (RFQ)</h3>
+                <p class="text-sm text-gray-600 mt-1">قم بتعبئة البيانات وستتم تحويلها مباشرة إلى رسالة WhatsApp جاهزة</p>
             </div>
+
+            <form id="whatsappForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">اسم الشركة / الجهة *</label>
+                        <input type="text" id="company" required placeholder="مثال: شركة المقاولات" class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">المدينة *</label>
+                        <input type="text" id="city" required placeholder="مثال: الدمام / الخبر" class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">اسم المنتوج / النوع *</label>
+                        <input type="text" id="product" required placeholder="مثال: Hex Bolt" class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">المقاس (Size) *</label>
+                        <input type="text" id="size" required placeholder="مثال: M12 x 80" class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">الدرجة / المادة (Grade/Material)</label>
+                        <input type="text" id="grade" placeholder="مثال: Grade 8.8 / Stainless Steel" class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">الكمية المطلوبة *</label>
+                        <input type="text" id="quantity" required placeholder="مثال: 500 pcs" class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">ملاحظات إضافية</label>
+                    <textarea id="notes" rows="2" placeholder="أي تفاصيل أخرى..." class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+                </div>
+
+                <button type="button" onclick="sendToWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition text-base">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> إرسال الطلب عبر WhatsApp
+                </button>
+            </form>
         </div>
+    </section>
 
-        <div class="product-item">
-            <span class="product-name">HDG U-Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-hdg-u-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('HDG U-Bolt', 'qty-hdg-u-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('HDG U-Bolt', 'qty-hdg-u-bolt', 'alt')">طلب (54)</button>
-            </div>
+    <!-- Footer / أسفل الصفحة -->
+    <footer id="contact" class="bg-slate-900 text-gray-400 py-8 mt-auto border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm space-y-2">
+            <p class="text-white font-bold">EASY WORLD FASTENERS</p>
+            <p>المملكة العربية السعودية | توريد جميع مستلزمات الربط والتثبيت للمشاريع والمصانع</p>
+            <p class="text-xs text-gray-500 mt-4">© 2026 Easy World Fasteners. All rights reserved.</p>
         </div>
+    </footer>
 
-        <div class="product-item">
-            <span class="product-name">G.I. Hex Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-gi-hex-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('G.I. Hex Bolt', 'qty-gi-hex-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('G.I. Hex Bolt', 'qty-gi-hex-bolt', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
+    <!-- Fixed WhatsApp Floating Button / زر الواتساب الثابت -->
+    <a href="https://wa.me/?text=السلام%20عليكم،%20أرغب%20في%20الاستفسار" target="_blank" class="fixed bottom-5 left-5 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition flex items-center justify-center z-50">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
 
-    <!-- قسم 🪛 Screws -->
-    <div class="category">
-        <h2 class="category-title">🪛 Screws</h2>
+    <!-- JavaScript لربط الاستمارة بالواتساب -->
+    <script>
+        function sendToWhatsApp() {
+            // قم بتغيير الرقم هنا لرقم واتساب الشركة الخاص بك (مع المفتاح الدولي بدون +)
+            const phoneNumber = "966500000000"; 
 
-        <div class="product-item">
-            <span class="product-name">Self Drilling Screw</span>
-            <div class="order-action">
-                <input type="number" id="qty-self-drilling" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Self Drilling Screw', 'qty-self-drilling', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Self Drilling Screw', 'qty-self-drilling', 'alt')">طلب (54)</button>
-            </div>
-        </div>
+            const company = document.getElementById('company').value;
+            const city = document.getElementById('city').value;
+            const product = document.getElementById('product').value;
+            const size = document.getElementById('size').value;
+            const grade = document.getElementById('grade').value || "غير محدد";
+            const quantity = document.getElementById('quantity').value;
+            const notes = document.getElementById('notes').value || "لا يوجد";
 
-        <div class="product-item">
-            <span class="product-name">Drywall Screw</span>
-            <div class="order-action">
-                <input type="number" id="qty-drywall-screw" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Drywall Screw', 'qty-drywall-screw', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Drywall Screw', 'qty-drywall-screw', 'alt')">طلب (54)</button>
-            </div>
-        </div>
+            if(!company || !city || !product || !size || !quantity) {
+                alert("يرجى تعبئة الحقول المطلوبة (*)");
+                return;
+            }
 
-        <div class="product-item">
-            <span class="product-name">Concrete Screw</span>
-            <div class="order-action">
-                <input type="number" id="qty-concrete-screw" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Concrete Screw', 'qty-concrete-screw', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Concrete Screw', 'qty-concrete-screw', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
+            const message = `السلام عليكم، أرغب في الحصول على عرض سعر للمنتجات التالية:%0A%0A` +
+                            `🏢 *اسم الشركة:* ${company}%0A` +
+                            `📍 *المدينة:* ${city}%0A` +
+                            `🔩 *المنتج:* ${product}%0A` +
+                            `📐 *المقاس:* ${size}%0A` +
+                            `⚙️ *الدرجة/المادة:* ${grade}%0A` +
+                            `📦 *الكمية:* ${quantity}%0A` +
+                            `📝 *ملاحظات:* ${notes}`;
 
-    <!-- قسم 🔧 Nuts -->
-    <div class="category">
-        <h2 class="category-title">🔧 Nuts</h2>
-
-        <div class="product-item">
-            <span class="product-name">Hex Nut</span>
-            <div class="order-action">
-                <input type="number" id="qty-hex-nut" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Hex Nut', 'qty-hex-nut', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Hex Nut', 'qty-hex-nut', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Lock Nut</span>
-            <div class="order-action">
-                <input type="number" id="qty-lock-nut" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Lock Nut', 'qty-lock-nut', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Lock Nut', 'qty-lock-nut', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Flange Nut</span>
-            <div class="order-action">
-                <input type="number" id="qty-flange-nut" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Flange Nut', 'qty-flange-nut', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Flange Nut', 'qty-flange-nut', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Spring Nut</span>
-            <div class="order-action">
-                <input type="number" id="qty-spring-nut" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Spring Nut', 'qty-spring-nut', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Spring Nut', 'qty-spring-nut', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم ⚙️ Washers -->
-    <div class="category">
-        <h2 class="category-title">⚙️ Washers</h2>
-
-        <div class="product-item">
-            <span class="product-name">Flat Washer</span>
-            <div class="order-action">
-                <input type="number" id="qty-flat-washer" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Flat Washer', 'qty-flat-washer', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Flat Washer', 'qty-flat-washer', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Spring Washer</span>
-            <div class="order-action">
-                <input type="number" id="qty-spring-washer" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Spring Washer', 'qty-spring-washer', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Spring Washer', 'qty-spring-washer', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Fender Washer</span>
-            <div class="order-action">
-                <input type="number" id="qty-fender-washer" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Fender Washer', 'qty-fender-washer', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Fender Washer', 'qty-fender-washer', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم 🧱 Anchors -->
-    <div class="category">
-        <h2 class="category-title">🧱 Anchors</h2>
-
-        <div class="product-item">
-            <span class="product-name">Anchor Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-anchor-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Anchor Bolt', 'qty-anchor-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Anchor Bolt', 'qty-anchor-bolt', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">L-Type Anchor Bolt</span>
-            <div class="order-action">
-                <input type="number" id="qty-l-anchor-bolt" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('L-Type Anchor Bolt', 'qty-l-anchor-bolt', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('L-Type Anchor Bolt', 'qty-l-anchor-bolt', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Expansion Anchor</span>
-            <div class="order-action">
-                <input type="number" id="qty-expansion-anchor" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Expansion Anchor', 'qty-expansion-anchor', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Expansion Anchor', 'qty-expansion-anchor', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم 🏗️ Fixings -->
-    <div class="category">
-        <h2 class="category-title">🏗️ Fixings</h2>
-
-        <div class="product-item">
-            <span class="product-name">Concrete Fixings</span>
-            <div class="order-action">
-                <input type="number" id="qty-concrete-fixings" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Concrete Fixings', 'qty-concrete-fixings', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Concrete Fixings', 'qty-concrete-fixings', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Steel Fixings</span>
-            <div class="order-action">
-                <input type="number" id="qty-steel-fixings" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Steel Fixings', 'qty-steel-fixings', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Steel Fixings', 'qty-steel-fixings', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Strut / Channel Clamp</span>
-            <div class="order-action">
-                <input type="number" id="qty-strut-clamp" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Strut / Channel Clamp', 'qty-strut-clamp', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Strut / Channel Clamp', 'qty-strut-clamp', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Pipe Rubber Clamp</span>
-            <div class="order-action">
-                <input type="number" id="qty-pipe-clamp" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Pipe Rubber Clamp', 'qty-pipe-clamp', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Pipe Rubber Clamp', 'qty-pipe-clamp', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم 🛠️ Special Parts -->
-    <div class="category">
-        <h2 class="category-title">🛠️ Special Parts</h2>
-
-        <div class="product-item">
-            <span class="product-name">Custom Fasteners</span>
-            <div class="order-action">
-                <input type="number" id="qty-custom-fasteners" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Custom Fasteners', 'qty-custom-fasteners', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Custom Fasteners', 'qty-custom-fasteners', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">Special Parts</span>
-            <div class="order-action">
-                <input type="number" id="qty-special-parts" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('Special Parts', 'qty-special-parts', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('Special Parts', 'qty-special-parts', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-
-        <div class="product-item">
-            <span class="product-name">تصنيع حسب الرسم أو العينة</span>
-            <div class="order-action">
-                <input type="number" id="qty-custom-drawing" class="qty-input" value="1" min="1">
-                <button class="btn-send" onclick="sendOrder('تصنيع حسب الرسم أو العينة', 'qty-custom-drawing', 'main')">طلب (الرئيسي)</button>
-                <button class="btn-send-alt" onclick="sendOrder('تصنيع حسب الرسم أو العينة', 'qty-custom-drawing', 'alt')">طلب (54)</button>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- أزرار التواصل العائمة -->
-<div class="floating-contact">
-    <a href="https://wa.me/966558079757" target="_blank" class="floating-btn">💬 واتساب الرئيسي</a>
-    <a href="https://wa.me/966540000000" target="_blank" class="floating-btn alt">💬 واتساب (54)</a>
-</div>
-
-<script>
-    function sendOrder(productName, inputId, targetNum) {
-        var mainPhone = "966558079757"; 
-        var altPhone = "966540000000"; // يمكنك تغيير هذا الرقم إذا كان لديك رقم آخر لـ 54
-        
-        var selectedPhone = (targetNum === 'alt') ? altPhone : mainPhone;
-        var quantity = document.getElementById(inputId).value;
-        
-        if (quantity < 1 || quantity === "") {
-            alert("يرجى إدخال كمية صحيحة");
-            return;
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
-
-        var message = "السلام عليكم، أريد طلب المنتج التالي:\n" +
-                      "- المنتج: " + productName + "\n" +
-                      "- الكمية: " + quantity;
-
-        var encodedMessage = encodeURIComponent(message);
-        var whatsappUrl = "https://wa.me/" + selectedPhone + "?text=" + encodedMessage;
-
-        window.open(whatsappUrl, '_blank');
-    }
-</script>
-
+    </script>
 </body>
 </html>
